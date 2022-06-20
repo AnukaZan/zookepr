@@ -25,14 +25,26 @@ function filterByQuery(query, animalsArray){
         personalityTraitsArray.forEach(trait => {
             
             // filteredResults array will contain only the entries that contain the trait,
-            filteredResults = filteredResults.filter(//.filter creates new array that passes the test
-                //check the first index the trait is found in each personalityTraits array
+            filteredResults = filteredResults.filter(
                 //check if the index the trait is found is not equal to -1 (meaning it can be found)
                 animal => animal.personalityTraits.indexOf(trait) !== -1
-               
             );
         });
     }
+
+    if (query.diet){ //make new array that match parameter
+        filteredResults = filteredResults.filter(animal => animal.diet ===query.diet);
+    }
+
+    if (query.species){//make new array that match parameter
+        filteredResults = filteredResults.filter(animal => animal.species ===query.species);
+    }
+    
+    if (query.name){//make new array that match parameter
+        filteredResults = filteredResults.filter(animal => animal.name ===query.name);
+    }
+
+    return filteredResults;
 }
 
 //get( 1. string that describes route the client will fetch from,  
