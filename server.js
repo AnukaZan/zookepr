@@ -49,6 +49,12 @@ function filterByQuery(query, animalsArray){
     return filteredResults;
 }
 
+function findById(id, animalsArray){
+    //return the first item in the new array where animal.id matches id in findById parameter
+    const result = animalsArray.filter(animal => animal.id === id)[0];
+    return result;
+}
+
 //get( 1. string that describes route the client will fetch from,  
 //2. callback function executes every time http://localhost:3001/api/animals is accessed with a get request)
 app.get('/api/animals', (req, res) => { 
@@ -57,6 +63,15 @@ app.get('/api/animals', (req, res) => {
         results = filterByQuery(req.query, results);
     }
     res.json(results);
+});
+
+app.get('/api/animals/:id', (req, res) => {
+  const result = findById(req.params.id, animals);
+  if (result) {
+    res.json(result);
+  } else {
+    res.send(404);
+  }
 });
 
 app.listen(PORT, () => { //host server on port 3001
